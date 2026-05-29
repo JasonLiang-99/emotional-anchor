@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotional Anchor 专业版 - AI Agent情绪PID调节器</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#0a0a1a;color:#e0e0e0;line-height:1.6}
+a{color:#667eea;text-decoration:none}
+.hero{text-align:center;padding:80px 20px 40px;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)}
+.hero h1{font-size:2.5em;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#a0a0c0;margin-top:10px}
+.badge{display:inline-block;background:#667eea;color:#fff;padding:4px 16px;border-radius:20px;font-size:.85em;margin-top:15px}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+h2{font-size:1.5em;color:#667eea;margin:40px 0 20px;text-align:center}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:40px 0}
+.plan{background:#1a1a2e;border:2px solid #2a2a4e;border-radius:16px;padding:32px;text-align:center;transition:all .3s}
+.plan:hover{border-color:#667eea;transform:translateY(-4px)}
+.plan.featured{border-color:#667eea;box-shadow:0 0 30px rgba(102,126,234,.3)}
+.plan h3{font-size:1.3em;margin-bottom:8px;color:#fff}
+.price{font-size:2.2em;font-weight:700;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0}
+.price small{font-size:.4em;-webkit-text-fill-color:#a0a0c0}
+.features{text-align:left;margin:20px 0}
+.features li{padding:8px 0;border-bottom:1px solid #2a2a4e;list-style:none}
+.features li::before{content:"✅ ";margin-right:8px}
+.features li.disabled{color:#555}
+.features li.disabled::before{content:"❌ "}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:1.1em;font-weight:600;cursor:pointer;transition:all .3s;text-decoration:none;text-align:center}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-outline{background:transparent;border:2px solid #667eea;color:#667eea}
+.btn-outline:hover{background:#667eea;color:#fff}
+.compare{margin:60px 0}
+.compare table{width:100%;border-collapse:collapse;margin-top:20px}
+.compare th,.compare td{padding:12px 16px;border:1px solid #2a2a4e;text-align:center}
+.compare th{background:#1a1a2e;color:#667eea}
+.compare td:first-child{text-align:left}
+.compare tr:nth-child(even){background:#12122a}
+.faq{margin:60px 0}
+.faq-item{background:#1a1a2e;border-radius:12px;padding:20px;margin:12px 0;cursor:pointer}
+.faq-item h4{color:#667eea;margin-bottom:8px}
+.faq-item p{color:#a0a0c0;display:none}
+.faq-item.open p{display:block}
+.contact{text-align:center;padding:40px 20px;background:#12122a;border-radius:16px;margin:40px 0}
+.contact h3{color:#667eea;margin-bottom:12px}
+footer{text-align:center;padding:40px;color:#555;font-size:.85em}
+</style>
+</head>
+<body>
+<div class="hero">
+<h1>🎯 Emotional Anchor 专业版</h1>
+<p>AI Agent 情绪PID调节器 — 让你的AI在任何情绪输入下保持稳定输出</p>
+<div class="badge">🚀 限时优惠 · 首年5折</div>
+</div>
+<div class="container">
+<h2>选择适合你的版本</h2>
+<div class="plans">
+<div class="plan">
+<h3>🆓 开源版</h3>
+<div class="price">¥0<small>/永久</small></div>
+<ul class="features">
+<li>基础PID锚定（3种模式）</li>
+<li>单会话情绪控制</li>
+<li>L1/L2修正机制</li>
+<li>5种情绪模式</li>
+<li>社区支持</li>
+<li class="disabled">多Agent情绪同步</li>
+<li class="disabled">情绪趋势分析</li>
+<li class="disabled">自定义阈值</li>
+</ul>
+<a href="https://github.com/johnsonsl/emotional-anchor" class="btn btn-outline">GitHub 免费获取</a>
+</div>
+<div class="plan featured">
+<h3>⭐ 专业版</h3>
+<div class="price">¥49<small>/年</small></div>
+<ul class="features">
+<li>开源版全部功能</li>
+<li>10种情绪模式</li>
+<li>多Agent情绪同步</li>
+<li>情绪趋势分析仪表盘</li>
+<li>自定义PID阈值</li>
+<li>邮件支持</li>
+<li>季度更新</li>
+<li class="disabled">私有部署</li>
+</ul>
+<a href="#buy" class="btn btn-primary">立即购买</a>
+</div>
+<div class="plan">
+<h3>🏢 企业版</h3>
+<div class="price">¥499<small>/年</small></div>
+<ul class="features">
+<li>专业版全部功能</li>
+<li>私有部署方案</li>
+<li>定制情绪模型</li>
+<li>SLA保障（99.9%）</li>
+<li>专属技术顾问</li>
+<li>月度优化报告</li>
+<li>无限Agent数量</li>
+<li>发票支持</li>
+</ul>
+<a href="#buy" class="btn btn-primary">联系购买</a>
+</div>
+</div>
+<h2>功能对比</h2>
+<div class="compare">
+<table>
+<tr><th>功能</th><th>开源版</th><th>专业版</th><th>企业版</th></tr>
+<tr><td>基础PID锚定</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>L1/L2修正机制</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>情绪模式数量</td><td>5种</td><td>10种</td><td>无限</td></tr>
+<tr><td>多Agent同步</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>情绪趋势分析</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>自定义阈值</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>私有部署</td><td>❌</td><td>❌</td><td>✅</td></tr>
+<tr><td>技术支持</td><td>社区</td><td>邮件</td><td>专属顾问</td></tr>
+</table>
+</div>
+<h2 id="buy">💳 购买专业版/企业版</h2>
+<div style="text-align:center;padding:40px 20px;background:#1a1a2e;border-radius:16px">
+<p style="font-size:1.1em;margin-bottom:20px">付款后联系QQ发送资料</p>
+<p style="margin-top:20px;color:#a0a0c0;font-size:1.1em">
+<strong style="color:#667eea;font-size:1.3em">QQ：2358333333</strong><br>
+付款后加QQ发截图，1小时内发送专业版资料包
+</p>
+</div>
+<h2>常见问题</h2>
+<div class="faq">
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<h4>开源版和专业版有什么区别？</h4>
+<p>开源版包含5种情绪模式。专业版增加到10种模式，包括共情映射、角色保持、质量监控、预测干预、流状态等高级功能。</p>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<h4>支持哪些AI平台？</h4>
+<p>支持所有基于Prompt的AI平台：OpenAI、Claude、文心一言、通义千问、DeepSeek等。</p>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<h4>可以退款吗？</h4>
+<p>7天无理由退款。</p>
+</div>
+</div>
+<div class="contact">
+<h3>联系我们</h3>
+<p>QQ：2358333333</p>
+<p>GitHub：<a href="https://github.com/johnsonsl/emotional-anchor">github.com/johnsonsl/emotional-anchor</a></p>
+</div>
+</div>
+<footer>
+<p>© 2026 Emotional Anchor · Made by JohnsonSL</p>
+</footer>
+</body>
+</html>
