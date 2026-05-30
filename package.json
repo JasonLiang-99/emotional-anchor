@@ -1,0 +1,39 @@
+{
+  "name": "emotional-anchor",
+  "version": "2.0.0",
+  "description": "情绪向量PID调节器 — 自感知情绪偏差 → 闭环修正至正常阈值 → 保持输出质量",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/test.js",
+    "demo": "node examples/demo.js",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "emotion",
+    "pid-controller",
+    "self-correcting",
+    "prompt-engineering",
+    "ai-stability",
+    "sentiment-analysis",
+    "openclaw-skill"
+  ],
+  "author": "JasonLiang-99",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonLiang-99/emotional-anchor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JasonLiang-99/emotional-anchor/issues"
+  },
+  "homepage": "https://github.com/JasonLiang-99/emotional-anchor#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "src/",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ]
+}
