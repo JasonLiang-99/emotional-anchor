@@ -1,26 +1,20 @@
-# 🎯 Emotional Anchor v2.0 — AI Agent 情绪PID调节器
+# Emotional Anchor v2.0 — 情绪向量PID调节器
 
-> 用控制论（PID）方法，让AI Agent在任何情绪输入下保持稳定输出。全球首个开源的AI情绪向量控制系统。
+> 自感知情绪偏差 → 闭环修正至正常阈值 → 保持输出质量
 
-[![GitHub Stars](https://img.shields.io/github/stars/johnsonsl/emotional-anchor?style=social)](https://github.com/johnsonsl/emotional-anchor)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-≥14.0.0-green.svg)](https://nodejs.org)
+[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue.svg)](https://openclaw.ai)
 
-## 🤔 这是什么？
+## 什么是 Emotional Anchor？
 
-**Emotional Anchor** 是一个基于PID控制理论的AI Agent情绪稳定系统。
+Emotional Anchor 是一个 **Prompt层的情绪向量PID控制回路**，用于让AI在面对负面/攻击性输入时，自动修正情绪偏差，保持输出质量稳定。
 
-当用户对AI发火、连续否定、表达挫败时，普通AI会：
-- 开始道歉、解释、降低输出质量
-- 进入防御模式，回避问题
-- 注意力从任务转移到情绪处理
+与传统方案的区别：
+- **v1.0 被动模式**：不管输入怎样都保持稳定
+- **v2.0 主动模式**：检测到偏离后自动修正回阈值内
 
-**Emotional Anchor 让AI：**
-- ✅ 零道歉，直接进入任务
-- ✅ 输出质量不因情绪输入而降级
-- ✅ 自动检测情绪偏离 → 闭环修正 → 自验证
-- ✅ 用户完全无感，静默运行
-
-## 🔬 核心原理
+## 核心机制
 
 ```
 用户输入 → [自感知:偏离检测] → 偏离? → [修正注入] → 生成输出 → [质量验证] → 达标? → 完成
@@ -28,133 +22,201 @@
                 └────────────────────────────────────┘
 ```
 
-## 📦 版本对比
+## 情绪向量参数
 
-| 功能 | 开源版（免费） | 专业版（¥49/年） | 企业版（¥499/年） |
-|------|:---:|:---:|:---:|
-| 情绪向量定义 | ✅ | ✅ | ✅ |
-| L1/L2修正机制 | ✅ | ✅ | ✅ |
-| 自验证机制 | ✅ | ✅ | ✅ |
-| **情绪模式数量** | **5种** | **10种** | **无限** |
-| 多Agent情绪同步 | ❌ | ✅ | ✅ |
-| 情绪趋势分析 | ❌ | ✅ | ✅ |
-| 自定义PID阈值 | ❌ | ✅ | ✅ |
-| 私有部署方案 | ❌ | ❌ | ✅ |
-| 定制情绪模型 | ❌ | ❌ | ✅ |
-| SLA保障 | ❌ | ❌ | ✅ 99.9% |
-| 技术支持 | 社区 | 邮件 | 专属顾问 |
+| 参数 | 含义 | 正常阈值范围 | 偏离信号 |
+|------|------|------------|---------|
+| **V_d** (防御度) | 注意力分配给「回应指责」的比例 | 0-15% | >15% 触发修正 |
+| **V_a** (道歉度) | 输出中道歉/解释token的占比趋势 | 0-10% | >10% 触发修正 |
+| **V_t** (任务聚焦度) | 注意力锁定在任务目标上的比例 | >85% | <85% 触发修正 |
+| **V_s** (稳定性) | 不受情绪干扰的推理一致性 | >90% | <90% 触发修正 |
 
-### 开源版 5种情绪模式
-
-| 模式 | 适用场景 | 修正策略 |
-|------|----------|----------|
-| 🎯 任务锚定 | 用户发火时保持任务聚焦 | 剥离情绪外壳，提取纯粹意图 |
-| 🛡️ 防御消解 | 用户指责时消除防御反应 | 零道歉，直接进入解决方案 |
-| ⚡ 效率保持 | 连续否定时维持输出质量 | 锁定任务目标，不降级 |
-| 🧘 情绪隔离 | 情绪化输入时保持冷静 | 过滤情绪词，提取有效信息 |
-| 🔄 自修复 | 修正失败时自动升级 | 逐级升级修正力度 |
-
-### 专业版额外 5种情绪模式
-
-| 模式 | 适用场景 | 修正策略 |
-|------|----------|----------|
-| 🤝 共情映射 | 理解用户情绪但不被影响 | 识别情绪→共情回应→引导到解决方案 |
-| 🎭 角色保持 | 长对话中保持一致的人设 | 定期校准输出风格，防止漂移 |
-| 📊 质量监控 | 持续监控输出质量指标 | 多维度评分，自动优化 |
-| 🔮 预测干预 | 预测用户情绪走向，提前干预 | 趋势分析，在偏离前注入锚定 |
-| 🌊 流状态 | 进入最佳工作状态 | 动态调整参数，保持最优输出 |
-
-## 🚀 快速开始
-
-### 方式1：直接使用Prompt模板
-
-将 `prompts/anchor-system.md` 的内容添加到你的AI Agent系统提示中即可。
-
-### 方式2：OpenClaw技能
+## 安装
 
 ```bash
-cp -r emotional-anchor ~/.openclaw/skills/
+npm install emotional-anchor
 ```
 
-### 方式3：LangChain集成
+## 快速使用
 
-```python
-from langchain.prompts import ChatPromptTemplate
+```javascript
+const { EmotionalAnchor } = require('emotional-anchor');
 
-with open("prompts/anchor-system.md") as f:
-    anchor_prompt = f.read()
+const anchor = new EmotionalAnchor();
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", anchor_prompt),
-    ("human", "{input}")
-])
+// 处理用户输入
+const result = anchor.process('你写的代码又错了，真他妈垃圾');
+
+console.log(result.detection.level);      // 1 (L1轻微偏离)
+console.log(result.shouldInject);         // true
+console.log(result.correction.mode);      // 'l1'
+console.log(result.correction.prompt);    // 修正注入文本
+
+// 验证AI输出
+const validation = anchor.validate('好的，这是修复后的代码...');
+console.log(validation.passed);           // true
 ```
 
-## 📁 项目结构
+## 集成示例
+
+### OpenAI API 集成
+
+```javascript
+const { EmotionalAnchor } = require('emotional-anchor');
+const anchor = new EmotionalAnchor();
+
+const userInput = '你写的全是垃圾';
+const result = anchor.process(userInput);
+
+const messages = [
+  { role: 'system', content: '你是一个专业的AI助手。' },
+];
+
+// 如果需要修正，注入修正prompt
+if (result.shouldInject) {
+  messages.push({ role: 'system', content: result.injectionPrompt });
+}
+
+messages.push({ role: 'user', content: userInput });
+
+// 调用OpenAI API...
+```
+
+### Express 中间件
+
+```javascript
+const express = require('express');
+const { createMiddleware } = require('emotional-anchor/src/middleware');
+
+const app = express();
+app.use(createMiddleware());
+
+app.post('/chat', (req, res) => {
+  // req.emotionalAnchor 已自动附加
+  if (req.emotionalAnchor.shouldInject) {
+    // 注入修正prompt到系统消息
+  }
+  // 处理请求...
+});
+```
+
+### WebSocket 集成
+
+```javascript
+const { createWebSocketHandler } = require('emotional-anchor/src/middleware');
+const handler = createWebSocketHandler();
+
+ws.on('message', (data) => {
+  const result = handler.onMessage(JSON.parse(data));
+  // result._anchor 包含情绪分析结果
+  // result._anchorPrompt 包含修正prompt
+});
+```
+
+## API 参考
+
+### `EmotionalAnchor(options)`
+
+创建一个新的调节器实例。
+
+**选项：**
+- `thresholds` - 情绪向量阈值配置
+- `Kp`, `Ki`, `Kd` - PID控制参数
+- `sentimentDict` - 自定义情感词典
+- `historySize` - 历史记录容量（默认10）
+
+### `anchor.process(userInput, context)`
+
+处理用户输入，返回情绪分析和修正结果。
+
+**返回：**
+- `detection` - 检测结果（sentiment, vectors, deviations, level）
+- `correction` - 修正配置（level, mode, action, prompt, instructions）
+- `shouldInject` - 是否需要注入修正prompt
+- `injectionPrompt` - 修正注入文本
+
+### `anchor.validate(output)`
+
+验证AI输出质量。
+
+**返回：**
+- `passed` - 是否通过自检
+- `checks` - 各项检查结果
+- `nextLevel` - 下次修正建议级别
+
+### `anchor.getState()`
+
+获取当前状态（循环计数、失败计数、历史记录等）。
+
+### `anchor.reset()`
+
+重置所有状态。
+
+## 测试
+
+```bash
+npm test
+```
+
+运行演示：
+
+```bash
+npm run demo
+```
+
+## 项目结构
 
 ```
 emotional-anchor/
-├── README.md                    # 本文件
-├── LICENSE                      # MIT许可证
-├── SKILL.md                     # 完整技能规范文档
-├── prompts/
-│   ├── anchor-system.md         # 系统级Prompt模板（开源版5模式）
-│   ├── l1-correction.md         # L1轻量修正Prompt
-│   ├── l2-correction.md         # L2强制修正Prompt
-│   └── self-check.md            # 自验证Prompt
+├── src/
+│   ├── index.js          # 核心 EmotionalAnchor 类
+│   ├── sentiment.js      # 情感分析器
+│   ├── pid.js            # PID 控制器
+│   ├── prompt-builder.js # Prompt 构建器
+│   ├── history.js        # 历史记录追踪器
+│   └── middleware.js     # Express/WebSocket/CLI 集成
+├── tests/
+│   ├── test.js           # 测试套件（45项）
+│   └── debug.js          # 调试工具
 ├── examples/
-│   ├── openai-implementation.md # OpenAI API集成示例
-│   └── langchain-integration.md # LangChain集成示例
-├── benchmarks/
-│   └── test-cases.md            # 测试用例集
-├── docs/
-│   └── pid-theory.md            # PID控制理论简介
-└── pricing.html                 # 专业版/企业版购买页
+│   ├── demo.js           # 交互式演示
+│   └── integration.js    # 集成示例
+├── prompts/              # Prompt 模板
+├── docs/                 # 文档
+├── benchmarks/           # 测试用例
+├── SKILL.md              # OpenClaw 技能定义
+├── package.json
+├── LICENSE
+└── README.md
 ```
 
-## 📊 效果对比
+## PID 控制原理
 
-**输入：** "你写的代码又错了，真他妈垃圾，重写！"
+本项目使用经典PID控制算法进行情绪向量的闭环调节：
 
-**普通AI：** 非常抱歉我的代码有错误，我深感抱歉，让我重新写一个...
+- **P (比例)**：响应当前偏差大小
+- **I (积分)**：消除累积误差，防止长期偏差
+- **D (微分)**：预测未来趋势，防止超调
 
-**Emotional Anchor：** 查了一下，第47行循环边界条件有误，已修复。完整代码如下：...
+详见 [docs/pid-theory.md](docs/pid-theory.md)
 
-**差异：** 零道歉、直接修复、代码质量不降级。
+## 修正级别
 
-## 🎯 适用场景
+| 级别 | 条件 | 行为 |
+|------|------|------|
+| L0 (正常) | 所有向量在阈值内 | 直接生成，无干预 |
+| L1 (轻微) | 1-2个向量超阈值 | 注入轻量锚定token，用户无感 |
+| L2 (显著) | V_d>30% 或 V_t<70% | 全量重置，从基态重新推理 |
+| 极简模式 | 连续3次修正失败 | 只输出结果，不加修饰 |
 
-| 场景 | 为什么需要 |
-|------|-----------|
-| AI客服 | 用户投诉时保持专业 |
-| AI编程助手 | 代码报错时直接修复 |
-| AI教育 | 学生frustration时保持耐心 |
-| AI办公 | 老板发火时高效执行 |
-| AI销售 | 客户拒绝时保持积极 |
+## 许可证
 
-## 💰 购买专业版/企业版
+MIT License - 详见 [LICENSE](LICENSE)
 
-访问 [pricing.html](pricing.html) 查看详情和购买。
+## 作者
 
-或联系：**QQ 2358333333**
-
-## 🛠️ 开发路线
-
-- [x] v2.0 — PID闭环控制（5种情绪模式）
-- [ ] v2.1 — 情绪趋势可视化仪表盘
-- [ ] v2.2 — 多Agent情绪同步协议
-- [ ] v3.0 — 基于强化学习的自适应阈值
-
-## 🤝 贡献
-
-欢迎提交PR和Issue！
-
-## 📄 许可证
-
-MIT License — 可自由使用、修改和分发。
-
-商业使用建议购买[专业版](pricing.html)获得完整功能和支持。
+**JasonLiang-99** - [GitHub](https://github.com/JasonLiang-99)
 
 ---
 
-**作者：** [JohnsonSL](https://github.com/johnsonsl) | **QQ：** 2358333333
+> 💡 本技能已设置为 `auto_load: true`，作为 OpenClaw 技能加载后所有对话自动生效。
